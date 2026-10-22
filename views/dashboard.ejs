@@ -5,10 +5,10 @@
   <!-- Dashboard Top Bar -->
   <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
     <div>
-      <span class="exp-badge">LIVE BMS TELEMETRY &bull; EXPERIMENT 2 &amp; 7</span>
+      <span class="exp-badge">REAL-TIME BMS TELEMETRY</span>
       <h1 style="font-size: 2.2rem;">Battery Telemetry Dashboard</h1>
       <p style="color: var(--text-muted); font-size: 0.95rem;">
-        Real-time telemetry parsed from <code style="color: var(--accent-neon);">data/batteryData.json</code> via Node.js File System &amp; Custom Calculator.
+        Live pack telemetry monitored and evaluated from <code style="color: var(--accent-neon);">data/batteryData.json</code> via Node.js File System &amp; Custom Calculator.
       </p>
     </div>
 
@@ -52,8 +52,7 @@
     </div>
   </div>
 
-  <!-- Primary Required Telemetry Cards (Grid of 6 required fields + calculated power) -->
-  <!-- Required: Battery ID, Voltage, Current, Temperature, Charge Percentage, Battery Health, Calculated Power -->
+  <!-- Primary Telemetry Cards -->
   <div class="grid grid-cols-4" style="margin-bottom: 30px;">
     <!-- 1. Voltage Card -->
     <div class="card metric-card">
@@ -110,7 +109,7 @@
       </div>
     </div>
 
-    <!-- 4. Calculated Power Card (Experiment 5 Custom Module) -->
+    <!-- 4. Calculated Power Card -->
     <div class="card metric-card">
       <div class="card-header">
         <div class="metric-icon-wrap">💡</div>
@@ -220,22 +219,21 @@
   <% } %>
   <% } %>
 
-  <!-- Interactive Lab Experiments Workbench -->
+  <!-- Interactive Diagnostics & Tools Workbench -->
   <div class="grid grid-cols-2" style="margin-bottom: 30px;">
     
-    <!-- EXPERIMENT 3: Callback Demonstration Box -->
+    <!-- Diagnostics Service Box -->
     <div class="card" id="callback-section">
       <div class="card-header">
         <div>
-          <span class="exp-badge">EXPERIMENT 3 DEMO</span>
-          <h3 class="card-title">Callback Pattern Health Check</h3>
-          <p class="card-desc">Simulates asynchronous battery health diagnosis with callbacks</p>
+          <span class="exp-badge">DIAGNOSTICS SERVICE</span>
+          <h3 class="card-title">Automated Health Check Routine</h3>
+          <p class="card-desc">Asynchronous health diagnostics and sensor verification</p>
         </div>
       </div>
 
       <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 14px;">
-        Demonstrates the Node.js asynchronous error-first callback pattern:
-        <code>checkBatteryHealthWithCallback((err, data) =&gt; { ... })</code>
+        Executes non-blocking health check routine using error-first callback pattern:
       </p>
 
       <div class="terminal-window" style="margin-bottom: 16px;">
@@ -245,11 +243,11 @@
             <span class="dot dot-yellow"></span>
             <span class="dot dot-green"></span>
           </div>
-          <span class="terminal-title">callback_trace.log</span>
+          <span class="terminal-title">diagnostics.log</span>
         </div>
         <div class="terminal-body" id="callback-terminal-body">
-          <div class="terminal-line info">&gt; Ready. Click the button below to trigger the callback workflow.</div>
-          <div class="terminal-line info">&gt; Expected sequence:</div>
+          <div class="terminal-line info">&gt; Ready. Click the button below to initiate diagnostic routine.</div>
+          <div class="terminal-line info">&gt; Flow sequence:</div>
           <div class="terminal-line info">&gt; 1. Checking Battery...</div>
           <div class="terminal-line info">&gt; 2. Battery Data Loaded...</div>
           <div class="terminal-line info">&gt; 3. Callback Executed</div>
@@ -258,22 +256,22 @@
       </div>
 
       <button id="btn-run-callback" class="btn btn-primary" style="width: 100%;">
-        ▶️ Run Callback Health Check
+        ▶️ Run Battery Diagnostics
       </button>
     </div>
 
-    <!-- EXPERIMENT 4: File Operations Box -->
+    <!-- Storage Verification Box -->
     <div class="card" id="fileops-section">
       <div class="card-header">
         <div>
-          <span class="exp-badge">EXPERIMENT 4 DEMO</span>
-          <h3 class="card-title">File System (fs) Operations</h3>
+          <span class="exp-badge">STORAGE BENCH</span>
+          <h3 class="card-title">File System (fs) Verification</h3>
           <p class="card-desc">Tests readFileSync, readFile, appendFile, and writeFile</p>
         </div>
       </div>
 
       <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 14px;">
-        Verifies both synchronous and asynchronous operations targeting <code>batteryData.json</code> and <code>logs.txt</code>:
+        Verifies synchronous &amp; asynchronous I/O operations targeting <code>batteryData.json</code> and <code>logs.txt</code>:
       </p>
 
       <div class="terminal-window" style="margin-bottom: 16px;">
@@ -283,10 +281,10 @@
             <span class="dot dot-yellow"></span>
             <span class="dot dot-green"></span>
           </div>
-          <span class="terminal-title">fs_operations.log</span>
+          <span class="terminal-title">fs_storage.log</span>
         </div>
         <div class="terminal-body" id="fileops-terminal-body">
-          <div class="terminal-line info">&gt; Ready. Click below to execute all 4 fs module methods.</div>
+          <div class="terminal-line info">&gt; Ready. Click below to execute all 4 fs storage methods.</div>
           <div class="terminal-line info">&gt; [1] fs.readFileSync()</div>
           <div class="terminal-line info">&gt; [2] fs.readFile()</div>
           <div class="terminal-line info">&gt; [3] fs.appendFile()</div>
@@ -295,18 +293,18 @@
       </div>
 
       <button id="btn-run-fileops" class="btn btn-primary" style="width: 100%;">
-        ▶️ Test All File Operations
+        ▶️ Test Storage Operations
       </button>
     </div>
   </div>
 
-  <!-- EXPERIMENT 5: Interactive Custom Module Calculator Section -->
+  <!-- Interactive Custom Calculator Section -->
   <div class="card" id="calc-section">
     <div class="card-header">
       <div>
-        <span class="exp-badge">EXPERIMENT 5 DEMO</span>
-        <h3 class="card-title">Custom Module Test Bench (<code style="color: var(--accent-neon);">batteryCalculator.js</code>)</h3>
-        <p class="card-desc">Evaluate custom module calculations with interactive input parameters</p>
+        <span class="exp-badge">ENGINEERING SIMULATOR</span>
+        <h3 class="card-title">Electrical Parameters Calculator (<code style="color: var(--accent-neon);">batteryCalculator.js</code>)</h3>
+        <p class="card-desc">Simulate pack calculations with interactive voltage and load inputs</p>
       </div>
     </div>
 
@@ -339,7 +337,7 @@
 
         <div class="form-group" style="display: flex; align-items: flex-end;">
           <button type="submit" class="btn btn-primary" style="width: 100%;">
-            ⚡ Calculate with Module
+            ⚡ Calculate Parameters
           </button>
         </div>
       </div>

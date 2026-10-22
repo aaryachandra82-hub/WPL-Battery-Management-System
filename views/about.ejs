@@ -4,41 +4,40 @@
 <main class="container" style="flex: 1; padding: 40px 24px 60px;">
   <!-- About Hero -->
   <div style="margin-bottom: 36px; text-align: center;">
-    <span class="exp-badge">COLLEGE WEB DEVELOPMENT LAB &bull; EXPERIMENT 6</span>
-    <h1 style="font-size: 2.6rem; margin-top: 8px;">About the Battery Management System (BMS)</h1>
+    <span class="exp-badge">ENGINEERING &bull; TELEMETRY PLATFORM</span>
+    <h1 style="font-size: 2.6rem; margin-top: 8px;">About Battery Management System (BMS Pro)</h1>
     <p style="color: var(--text-secondary); max-width: 760px; margin: 12px auto 0; font-size: 1.05rem;">
-      An end-to-end full-stack web application illustrating fundamental backend web technologies: HTTP servers, Express.js routing, EJS templating, asynchronous callbacks, the File System (<code style="color: var(--accent-neon);">fs</code>) module, and custom reusable modules.
+      An industrial full-stack web application designed for real-time pack telemetry monitoring, cell balancing analytics, automated health diagnostics, and machine-readable data feeds.
     </p>
   </div>
 
-  <!-- Academic Lab Details & Objectives -->
+  <!-- System Overview & BMS Principles -->
   <div class="grid grid-cols-2" style="margin-bottom: 36px;">
     <div class="card">
-      <h3 style="font-size: 1.25rem; margin-bottom: 16px; color: var(--accent-neon);">🎯 Lab Aim &amp; Objectives</h3>
+      <h3 style="font-size: 1.25rem; margin-bottom: 16px; color: var(--accent-neon);">🎯 System Purpose &amp; Capabilities</h3>
       <ul style="color: var(--text-secondary); font-size: 0.95rem; padding-left: 20px; line-height: 1.8;">
-        <li>Demonstrate low-level native HTTP server creation using Node.js <code>http</code> module.</li>
-        <li>Implement production RESTful routing and static asset delivery with Express.js.</li>
-        <li>Master asynchronous programming and the error-first callback pattern in Node.js.</li>
-        <li>Perform synchronous and asynchronous file system operations (<code>readFileSync</code>, <code>readFile</code>, <code>writeFile</code>, <code>appendFile</code>) on JSON and text files.</li>
-        <li>Design and export reusable CommonJS custom modules (<code>batteryCalculator.js</code>).</li>
-        <li>Dynamically render server-side views using the EJS (Embedded JavaScript) templating engine.</li>
-        <li>Develop an industrial green/black responsive telemetry dashboard with CSS.</li>
+        <li>High-frequency non-blocking telemetry acquisition powered by Node.js.</li>
+        <li>RESTful API gateway serving structured JSON telemetry to IoT edge devices.</li>
+        <li>Asynchronous health diagnostics checking cell limits and thermal thresholds.</li>
+        <li>Dual-mode persistent storage using synchronous reads and asynchronous audit logging.</li>
+        <li>Integrated engineering calculator module for power, usable capacity, and efficiency.</li>
+        <li>Responsive real-time dashboard rendered dynamically via EJS.</li>
       </ul>
     </div>
 
     <div class="card">
       <h3 style="font-size: 1.25rem; margin-bottom: 16px; color: var(--accent-neon);">🔋 What is a BMS?</h3>
       <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; margin-bottom: 12px;">
-        A <strong>Battery Management System (BMS)</strong> is an electronic regulator that monitors and controls rechargeable battery packs (e.g. Lithium-Ion, LiFePO4).
+        A <strong>Battery Management System (BMS)</strong> is an electronic regulator that monitors and manages rechargeable lithium battery packs (LiFePO4, NMC).
       </p>
       <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-        The BMS guarantees safety, longevity, and efficiency by continuously evaluating key metrics:
+        The system preserves battery lifespan, prevents thermal runaway, and ensures safe operation across continuous charge and discharge cycles:
       </p>
       <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px;">
         <span class="badge badge-good">Pack Voltage (V)</span>
         <span class="badge badge-good">Pack Current (A)</span>
-        <span class="badge badge-good">Cell Balancing</span>
-        <span class="badge badge-good">Temperature (°C)</span>
+        <span class="badge badge-good">Cell Balancing (16S)</span>
+        <span class="badge badge-good">Thermal Limits (°C)</span>
         <span class="badge badge-good">State of Charge (SoC)</span>
         <span class="badge badge-good">State of Health (SoH)</span>
       </div>
@@ -49,21 +48,21 @@
   <div class="card" style="margin-bottom: 36px;">
     <h3 style="font-size: 1.25rem; margin-bottom: 16px;">🏛️ System Architecture &amp; Data Pipeline</h3>
     <div style="background: #030604; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-neon); overflow-x: auto; line-height: 1.5;">
-[Client Browser]
+[Client Browser / Edge Client]
        │
-       ├─── GET / (Home Page) ───────────────&gt; [app.js] ───&gt; Render index.ejs
+       ├─── GET / (Overview) ────────────────&gt; [app.js] ───&gt; Render index.ejs
        ├─── GET /battery (Dashboard) ─────────&gt; [app.js] ───&gt; [modules/fileManager.js] ──&gt; (fs.readFile)
        │                                                                │
        │                                                                └───&gt; [modules/batteryCalculator.js]
        │                                                                            │
-       │                                                                            └───&gt; Render dashboard.ejs
+       │                                                                            └──&gt; Render dashboard.ejs
        │
        ├─── GET /status ──────────────────────&gt; [app.js] ───&gt; Returns JSON { batteryId, voltage, ... }
        │
        ├─── GET /api/callback ────────────────&gt; [app.js] ───&gt; checkBatteryHealthWithCallback()
        │                                                         (Checking -&gt; Loaded -&gt; Callback -&gt; Health: Good)
        │
-       └─── GET /api/file-ops/test-all ───────&gt; [app.js] ───&gt; Tests readFileSync, readFile, writeFile, appendFile
+       └─── GET /api/file-ops/test-all ───────&gt; [app.js] ───&gt; Verifies readFileSync, readFile, writeFile, appendFile
                                                                  (Reads/Writes data/batteryData.json, Appends data/logs.txt)
     </div>
   </div>
@@ -86,7 +85,7 @@
             <td><code>/</code></td>
             <td>GET</td>
             <td>HTML (EJS)</td>
-            <td>Renders the Home landing page with BMS overview and quick telemetry.</td>
+            <td>Landing page with system overview and live pack summary.</td>
           </tr>
           <tr>
             <td><code>/battery</code></td>
@@ -104,19 +103,19 @@
             <td><code>/about</code></td>
             <td>GET</td>
             <td>HTML (EJS)</td>
-            <td>Renders the experiment overview, theoretical background, and syllabus mappings.</td>
+            <td>Renders the architecture overview and engineering technical specifications.</td>
           </tr>
           <tr>
             <td><code>/api/callback</code></td>
             <td>GET</td>
             <td>JSON / Event</td>
-            <td>Executes the asynchronous callback demonstration simulating health diagnostics.</td>
+            <td>Executes the asynchronous health diagnostics pipeline.</td>
           </tr>
           <tr>
             <td><code>/api/file-ops/test-all</code></td>
             <td>GET</td>
             <td>JSON</td>
-            <td>Executes and verifies all 4 fs methods: readFileSync, readFile, writeFile, and appendFile.</td>
+            <td>Executes and verifies storage methods: readFileSync, readFile, writeFile, and appendFile.</td>
           </tr>
           <tr>
             <td><code>/api/calculate</code></td>
@@ -132,9 +131,9 @@
   <!-- Module Specifications -->
   <div class="grid grid-cols-2">
     <div class="card">
-      <h3 style="font-size: 1.15rem; margin-bottom: 12px; color: var(--accent-neon);">📦 Custom Module: <code>batteryCalculator.js</code></h3>
+      <h3 style="font-size: 1.15rem; margin-bottom: 12px; color: var(--accent-neon);">📦 Calculation Module: <code>batteryCalculator.js</code></h3>
       <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 12px;">
-        Exported via <code>module.exports</code> with 3 mathematical functions:
+        Exported via <code>module.exports</code> with 3 core formulas:
       </p>
       <div style="font-family: var(--font-mono); font-size: 0.82rem; background: #08100c; padding: 12px; border-radius: 6px; color: #38bdf8;">
         1. calculatePower(voltage, current)<br>
@@ -147,19 +146,19 @@
     </div>
 
     <div class="card">
-      <h3 style="font-size: 1.15rem; margin-bottom: 12px; color: var(--accent-neon);">📁 File System Module: <code>fileManager.js</code></h3>
+      <h3 style="font-size: 1.15rem; margin-bottom: 12px; color: var(--accent-neon);">📁 Storage Module: <code>fileManager.js</code></h3>
       <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 12px;">
-        Interacts with the disk using Node's native <code>fs</code> library:
+        Native filesystem I/O operations:
       </p>
       <div style="font-family: var(--font-mono); font-size: 0.82rem; background: #08100c; padding: 12px; border-radius: 6px; color: #38bdf8;">
         1. fs.readFileSync('batteryData.json', 'utf-8')<br>
-        &nbsp;&nbsp;&nbsp;&rarr; Blocking synchronous read<br><br>
+        &nbsp;&nbsp;&nbsp;&rarr; Synchronous boot load<br><br>
         2. fs.readFile('batteryData.json', 'utf-8', callback)<br>
-        &nbsp;&nbsp;&nbsp;&rarr; Non-blocking asynchronous read<br><br>
+        &nbsp;&nbsp;&nbsp;&rarr; Non-blocking asynchronous query<br><br>
         3. fs.writeFile('batteryData.json', json, callback)<br>
-        &nbsp;&nbsp;&nbsp;&rarr; Overwrites current battery metrics<br><br>
+        &nbsp;&nbsp;&nbsp;&rarr; State updates<br><br>
         4. fs.appendFile('logs.txt', entry, callback)<br>
-        &nbsp;&nbsp;&nbsp;&rarr; Records telemetry log events with timestamps
+        &nbsp;&nbsp;&nbsp;&rarr; Audit trail logging
       </div>
     </div>
   </div>

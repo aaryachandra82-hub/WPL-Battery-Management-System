@@ -4,7 +4,7 @@
 <main class="container" style="flex: 1; padding-bottom: 50px;">
   <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-pill">⚡ College Web Development Laboratory &bull; Experiment 6</div>
+    <div class="hero-pill">⚡ Industrial Energy Storage &bull; Real-time Telemetry</div>
     <h1 class="hero-title">Battery Management System</h1>
     <p class="hero-subtitle">
       A full-stack industrial telemetry and diagnostics suite engineered with Node.js, Express.js, EJS, and the native File System (<code style="color: var(--accent-neon);">fs</code>) module.
@@ -15,10 +15,10 @@
         <span>📊 Open Battery Dashboard</span>
       </a>
       <a href="/status" target="_blank" class="btn btn-outline">
-        <span>🔌 Test /status JSON Endpoint</span>
+        <span>🔌 Test /status JSON Feed</span>
       </a>
       <a href="/about" class="btn btn-outline">
-        <span>📖 Lab Manual &amp; Theory</span>
+        <span>📖 Technical Architecture</span>
       </a>
     </div>
   </section>
@@ -77,69 +77,69 @@
   </section>
   <% } %>
 
-  <!-- Lab Experiments Breakdown -->
+  <!-- Architecture & System Components -->
   <section style="margin-bottom: 30px;">
     <div style="text-align: center; margin-bottom: 24px;">
-      <h2 style="font-size: 1.8rem;">Implemented Laboratory Experiments</h2>
-      <p style="color: var(--text-muted);">All core exercises required by the syllabus are integrated into this working project.</p>
+      <h2 style="font-size: 1.8rem;">Core Architecture Components</h2>
+      <p style="color: var(--text-muted);">Key subsystems powering real-time monitoring and pack safety.</p>
     </div>
 
     <div class="grid grid-cols-3">
-      <!-- Exp 1 -->
+      <!-- Service 1 -->
       <div class="card">
-        <span class="exp-badge">EXPERIMENT 1</span>
-        <h3 style="margin-bottom: 8px;">Native HTTP Server</h3>
+        <span class="exp-badge">HEARTBEAT DAEMON</span>
+        <h3 style="margin-bottom: 8px;">Native HTTP Service</h3>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">
-          Created using Node's built-in <code>http</code> module displaying <em>"Battery Management System Server Running"</em>.
+          Lightweight low-overhead server using Node's built-in <code>http</code> module displaying <em>"Battery Management System Server Running"</em>.
         </p>
         <div style="background: #09100d; padding: 8px 12px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-neon);">
-          npm run start:http (Port 3001)
+          npm run heartbeat (Port 3001)
         </div>
       </div>
 
-      <!-- Exp 2 -->
+      <!-- Service 2 -->
       <div class="card">
-        <span class="exp-badge">EXPERIMENT 2</span>
-        <h3 style="margin-bottom: 8px;">Basic Routing &amp; JSON</h3>
+        <span class="exp-badge">REST API GATEWAY</span>
+        <h3 style="margin-bottom: 8px;">Telemetry Routing &amp; JSON</h3>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">
-          Modular routes for <code>/</code>, <code>/battery</code>, <code>/status</code>, and <code>/about</code> with both HTML and dynamic JSON delivery.
+          High-performance Express routing for <code>/</code>, <code>/battery</code>, <code>/status</code>, and <code>/about</code> with structured JSON outputs.
         </p>
         <a href="/status" target="_blank" class="btn btn-outline btn-sm">Inspect /status JSON &rarr;</a>
       </div>
 
-      <!-- Exp 3 -->
+      <!-- Service 3 -->
       <div class="card">
-        <span class="exp-badge">EXPERIMENT 3</span>
-        <h3 style="margin-bottom: 8px;">Callback Demonstration</h3>
+        <span class="exp-badge">DIAGNOSTICS ENGINE</span>
+        <h3 style="margin-bottom: 8px;">Asynchronous Health Checks</h3>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">
-          Simulates battery health diagnosis with sequential console &amp; UI execution flow (Checking &rarr; Data Loaded &rarr; Callback Executed).
+          Simulates battery health diagnosis with sequential execution flow (Checking &rarr; Data Loaded &rarr; Callback Executed).
         </p>
-        <a href="/battery#callback-section" class="btn btn-outline btn-sm">View Callback Flow &rarr;</a>
+        <a href="/battery#callback-section" class="btn btn-outline btn-sm">View Health Diagnostics &rarr;</a>
       </div>
 
-      <!-- Exp 4 -->
+      <!-- Service 4 -->
       <div class="card">
-        <span class="exp-badge">EXPERIMENT 4</span>
-        <h3 style="margin-bottom: 8px;">File System (fs) Operations</h3>
+        <span class="exp-badge">PERSISTENCE LAYER</span>
+        <h3 style="margin-bottom: 8px;">File Storage &amp; Audit Logs</h3>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">
           Implements <code>readFileSync()</code>, <code>readFile()</code>, <code>writeFile()</code>, and <code>appendFile()</code> on <code>batteryData.json</code> and <code>logs.txt</code>.
         </p>
-        <a href="/battery#fileops-section" class="btn btn-outline btn-sm">Test File Operations &rarr;</a>
+        <a href="/battery#fileops-section" class="btn btn-outline btn-sm">Test Storage Layer &rarr;</a>
       </div>
 
-      <!-- Exp 5 -->
+      <!-- Service 5 -->
       <div class="card">
-        <span class="exp-badge">EXPERIMENT 5</span>
-        <h3 style="margin-bottom: 8px;">Custom Node.js Module</h3>
+        <span class="exp-badge">CALCULATION ENGINE</span>
+        <h3 style="margin-bottom: 8px;">Engineering Module</h3>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">
-          <code>batteryCalculator.js</code> calculates Power (P = V &times; I), Remaining Capacity (Ah), and Charging Efficiency (%).
+          <code>batteryCalculator.js</code> computes Electrical Power (P = V &times; I), Remaining Capacity (Ah), and Charging Efficiency (%).
         </p>
         <a href="/battery#calc-section" class="btn btn-outline btn-sm">Open Calculator &rarr;</a>
       </div>
 
-      <!-- Exp 6 & 7 -->
+      <!-- Service 6 -->
       <div class="card">
-        <span class="exp-badge">EXPERIMENTS 6 &amp; 7</span>
+        <span class="exp-badge">REACTIVE FRONTEND</span>
         <h3 style="margin-bottom: 8px;">Express &amp; EJS Engine</h3>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">
           Production-grade Express server with EJS template layouts, partials, static asset serving, and responsive CSS theme.

@@ -1,13 +1,11 @@
 /**
- * Module: fileManager.js
- * Experiments 3 & 4: Node.js Callback Pattern & File System (fs) Operations
+ * Battery Management System (BMS) - Data Access & Storage Layer
  * 
- * Demonstrates:
- * 1. fs.readFileSync() - Synchronous file read
- * 2. fs.readFile() - Asynchronous file read with error-first callback
- * 3. fs.writeFile() - Asynchronous file write
- * 4. fs.appendFile() - Asynchronous file append for telemetry logging
- * 5. checkBatteryHealthCallback() - Callback demonstration flow
+ * Handles persistent telemetry storage and asynchronous diagnostic workflows:
+ * 1. Synchronous & Asynchronous reads on batteryData.json
+ * 2. Asynchronous updates and writes
+ * 3. Event logging and audit trailing in logs.txt
+ * 4. Asynchronous battery health diagnosis routine
  */
 
 const fs = require('fs');
@@ -17,8 +15,7 @@ const DATA_FILE = path.join(__dirname, '..', 'data', 'batteryData.json');
 const LOG_FILE = path.join(__dirname, '..', 'data', 'logs.txt');
 
 /**
- * 1. SYNCHRONOUS READ: fs.readFileSync()
- * Reads battery data synchronously (blocking I/O).
+ * Reads battery telemetry synchronously.
  * 
  * @returns {Object} Parsed JSON battery data
  */
@@ -26,40 +23,36 @@ function readBatteryDataSync() {
   try {
     const rawData = fs.readFileSync(DATA_FILE, 'utf-8');
     const parsedData = JSON.parse(rawData);
-    console.log('[fs.readFileSync] Successfully read batteryData.json synchronously.');
     return { success: true, data: parsedData, method: 'readFileSync' };
   } catch (error) {
-    console.error('[fs.readFileSync] Error reading file:', error.message);
+    console.error('[Storage] Error reading telemetry synchronously:', error.message);
     return { success: false, error: error.message, method: 'readFileSync' };
   }
 }
 
 /**
- * 2. ASYNCHRONOUS READ: fs.readFile()
- * Reads battery data asynchronously using error-first callback pattern (non-blocking I/O).
+ * Reads battery telemetry asynchronously using error-first callback.
  * 
  * @param {Function} callback - Callback function (err, data)
  */
 function readBatteryDataAsync(callback) {
   fs.readFile(DATA_FILE, 'utf-8', (err, rawData) => {
     if (err) {
-      console.error('[fs.readFile] Error reading file asynchronously:', err.message);
+      console.error('[Storage] Error reading telemetry asynchronously:', err.message);
       return callback(err, null);
     }
     try {
       const parsedData = JSON.parse(rawData);
-      console.log('[fs.readFile] Successfully read batteryData.json asynchronously.');
       return callback(null, parsedData);
     } catch (parseErr) {
-      console.error('[fs.readFile] JSON parse error:', parseErr.message);
+      console.error('[Storage] Telemetry JSON parse error:', parseErr.message);
       return callback(parseErr, null);
     }
   });
 }
 
 /**
- * 3. ASYNCHRONOUS WRITE: fs.writeFile()
- * Overwrites or creates batteryData.json with updated battery information.
+ * Persists updated battery pack telemetry to disk.
  * 
  * @param {Object} updatedData - Object containing updated battery metrics
  * @param {Function} callback - Callback function (err, result)
@@ -68,20 +61,18 @@ function writeBatteryData(updatedData, callback) {
   const jsonString = JSON.stringify(updatedData, null, 2);
   fs.writeFile(DATA_FILE, jsonString, 'utf-8', (err) => {
     if (err) {
-      console.error('[fs.writeFile] Error writing to batteryData.json:', err.message);
+      console.error('[Storage] Error saving telemetry:', err.message);
       return callback(err, null);
     }
-    console.log('[fs.writeFile] Successfully saved data to batteryData.json.');
     return callback(null, {
-      message: 'Battery data written successfully via fs.writeFile()',
+      message: 'Battery telemetry saved successfully to storage',
       timestamp: new Date().toISOString()
     });
   });
 }
 
 /**
- * 4. ASYNCHRONOUS APPEND: fs.appendFile()
- * Appends BMS log entry / telemetry event to data/logs.txt without overwriting.
+ * Appends BMS telemetry event to persistent log file.
  * 
  * @param {string} logMessage - Log line to append
  * @param {Function} callback - Callback function (err, result)
@@ -92,26 +83,19 @@ function appendBmsLog(logMessage, callback) {
 
   fs.appendFile(LOG_FILE, entry, 'utf-8', (err) => {
     if (err) {
-      console.error('[fs.appendFile] Error appending to logs.txt:', err.message);
+      console.error('[Storage] Error appending log entry:', err.message);
       return callback(err, null);
     }
-    console.log(`[fs.appendFile] Log entry recorded: ${logMessage}`);
     return callback(null, {
-      message: 'Log appended successfully via fs.appendFile()',
+      message: 'Audit log appended successfully',
       entry: entry.trim()
     });
   });
 }
 
 /**
- * EXPERIMENT 3: Callback Demonstration Function
- * Simulates battery health diagnosis after reading data.
- * 
- * Step-by-step console flow:
- * 1. Checking Battery...
- * 2. Battery Data Loaded...
- * 3. Callback Executed
- * 4. Battery Health: Good (or evaluated status)
+ * Asynchronous Battery Health Diagnosis Service
+ * Simulates diagnostic routine: sensor acquisition -> threshold check -> health scoring
  * 
  * @param {Function} onHealthEvaluated - Callback executed when diagnosis is complete
  */
@@ -125,7 +109,6 @@ function checkBatteryHealthWithCallback(onHealthEvaluated) {
 
   logStep('Checking Battery...');
 
-  // Asynchronously read data simulating BMS sensor acquisition delay
   setTimeout(() => {
     readBatteryDataAsync((err, data) => {
       if (err) {
@@ -134,8 +117,6 @@ function checkBatteryHealthWithCallback(onHealthEvaluated) {
       }
 
       logStep('Battery Data Loaded...');
-
-      // Execute callback with diagnosis logic
       logStep('Callback Executed');
 
       let healthStatus = 'Good';
@@ -149,7 +130,6 @@ function checkBatteryHealthWithCallback(onHealthEvaluated) {
 
       logStep(`Battery Health: ${healthStatus}`);
 
-      // Invoke callback
       onHealthEvaluated(null, {
         logs,
         batteryId: data.batteryId,

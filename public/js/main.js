@@ -1,10 +1,10 @@
 /**
- * Battery Management System (BMS) - Client-side Controller
+ * Battery Management System (BMS) - Client Controller
  * Provides interactive features for:
  * 1. Live status refresh from /status API
- * 2. Callback demonstration visual logger (/api/callback)
- * 3. File System operations runner (/api/file-ops/test-all)
- * 4. Interactive custom module calculator (/api/calculate)
+ * 2. Diagnostics routine visual logger (/api/callback)
+ * 3. File storage verification runner (/api/file-ops/test-all)
+ * 4. Real-time parameters calculator (/api/calculate)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await fetch('/status');
         const data = await response.json();
 
-        // Update UI elements dynamically if present
         const valVoltage = document.getElementById('telemetry-voltage');
         const valCurrent = document.getElementById('telemetry-current');
         const valTemp = document.getElementById('telemetry-temp');
@@ -54,15 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 2. Callback Health Check Demonstration Runner
+  // 2. Health Diagnostics Routine Runner
   const runCallbackBtn = document.getElementById('btn-run-callback');
   const callbackTerminal = document.getElementById('callback-terminal-body');
 
   if (runCallbackBtn && callbackTerminal) {
     runCallbackBtn.addEventListener('click', async () => {
       runCallbackBtn.disabled = true;
-      runCallbackBtn.innerHTML = '⏳ Executing Callback...';
-      callbackTerminal.innerHTML = '<div class="terminal-line info">&gt; Initializing Experiment 3 callback execution...</div>';
+      runCallbackBtn.innerHTML = '⏳ Executing Diagnostics...';
+      callbackTerminal.innerHTML = '<div class="terminal-line info">&gt; Initializing battery diagnostic routine...</div>';
 
       try {
         const res = await fetch('/api/callback');
@@ -77,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `Battery Health: ${data.result.health}`
           ];
 
-          // Simulate real-time console streaming
           logs.forEach((logLine, index) => {
             setTimeout(() => {
               const lineElem = document.createElement('div');
@@ -88,28 +86,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }, index * 250);
           });
         } else {
-          callbackTerminal.innerHTML += `<div class="terminal-line warning">&gt; Callback Error: ${data.error}</div>`;
+          callbackTerminal.innerHTML += `<div class="terminal-line warning">&gt; Diagnostics Error: ${data.error}</div>`;
         }
       } catch (e) {
         callbackTerminal.innerHTML += `<div class="terminal-line warning">&gt; Request failed: ${e.message}</div>`;
       } finally {
         setTimeout(() => {
           runCallbackBtn.disabled = false;
-          runCallbackBtn.innerHTML = '▶️ Run Callback Health Check';
+          runCallbackBtn.innerHTML = '▶️ Run Battery Diagnostics';
         }, 1200);
       }
     });
   }
 
-  // 3. File System Operations Test Runner
+  // 3. File System Storage Verification Runner
   const runFileOpsBtn = document.getElementById('btn-run-fileops');
   const fileOpsTerminal = document.getElementById('fileops-terminal-body');
 
   if (runFileOpsBtn && fileOpsTerminal) {
     runFileOpsBtn.addEventListener('click', async () => {
       runFileOpsBtn.disabled = true;
-      runFileOpsBtn.innerHTML = '⏳ Testing File Ops...';
-      fileOpsTerminal.innerHTML = '<div class="terminal-line info">&gt; Executing Experiment 4 fs module operations...</div>';
+      runFileOpsBtn.innerHTML = '⏳ Verifying Storage...';
+      fileOpsTerminal.innerHTML = '<div class="terminal-line info">&gt; Executing file storage verification...</div>';
 
       try {
         const res = await fetch('/api/file-ops/test-all');
@@ -125,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `[3] fs.appendFile()   : ${ops.appendFile.message}`,
             `    -> Log entry: "${ops.appendFile.entry}"`,
             `[4] fs.writeFile()    : ${ops.writeFile.message}`,
-            `✔ All 4 Node.js file operations verified without errors.`
+            `✔ All 4 storage methods verified without errors.`
           ];
 
           lines.forEach((line, i) => {
@@ -138,20 +136,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }, i * 200);
           });
         } else {
-          fileOpsTerminal.innerHTML = `<div class="terminal-line warning">&gt; Operations failed: ${JSON.stringify(result)}</div>`;
+          fileOpsTerminal.innerHTML += `<div class="terminal-line warning">&gt; Verification failed: ${JSON.stringify(result)}</div>`;
         }
       } catch (err) {
-        fileOpsTerminal.innerHTML = `<div class="terminal-line warning">&gt; Error invoking file operations: ${err.message}</div>`;
+        fileOpsTerminal.innerHTML += `<div class="terminal-line warning">&gt; Error invoking storage verification: ${err.message}</div>`;
       } finally {
         setTimeout(() => {
           runFileOpsBtn.disabled = false;
-          runFileOpsBtn.innerHTML = '▶️ Test All File Operations';
+          runFileOpsBtn.innerHTML = '▶️ Test Storage Operations';
         }, 1500);
       }
     });
   }
 
-  // 4. Interactive Custom Module Calculator Form
+  // 4. Interactive Parameters Calculator Form
   const calcForm = document.getElementById('form-bms-calculator');
   if (calcForm) {
     calcForm.addEventListener('submit', async (e) => {
@@ -181,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
           document.getElementById('res-calc-power').textContent = data.calculated.power;
           document.getElementById('res-calc-capacity').textContent = data.calculated.remainingCapacity;
           document.getElementById('res-calc-efficiency').textContent = data.calculated.efficiency;
-          showNotification('Calculation completed using batteryCalculator.js!', 'success');
+          showNotification('Calculation updated successfully!', 'success');
         }
       } catch (err) {
         showNotification('Calculator error: ' + err.message, 'error');
@@ -190,7 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Toast notification helper
 function showNotification(msg, type = 'info') {
   const toast = document.createElement('div');
   toast.style.position = 'fixed';

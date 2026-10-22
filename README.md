@@ -1,188 +1,158 @@
-# ⚡ Battery Management System (BMS) - Web Development Lab
+# ⚡ Battery Management System (BMS Pro)
 
-A complete, full-stack industrial telemetry and diagnostics web application developed for **College Web Development Laboratory Experiment 6**. Built using **Node.js**, **Express.js**, **EJS Template Engine**, **CSS3 (Green/Black/White Theme)**, and the Node.js **File System (`fs`)** module.
+[![Node.js Version](https://img.shields.io/badge/Node.js-v16+-10b981?style=flat&logo=node.js)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-v4.21-00ff88?style=flat&logo=express)](https://expressjs.com/)
+[![EJS Engine](https://img.shields.io/badge/Template-EJS-059669?style=flat)](https://ejs.co/)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
----
-
-## 📋 Table of Contents
-1. [Project Overview](#-project-overview)
-2. [Key Features & Implemented Experiments](#-key-features--implemented-experiments)
-3. [Folder Structure](#-folder-structure)
-4. [Prerequisites & Installation](#-prerequisites--installation)
-5. [Running the Application](#-running-the-application)
-6. [Application Routes & API Endpoints](#-application-routes--api-endpoints)
-7. [Screenshots Guide](#-screenshots-guide-for-lab-submission)
-8. [Lab Experiments Breakdown](#-lab-experiments-breakdown)
-9. [License & Credits](#-license--credits)
+A full-stack industrial telemetry, cell monitoring, and automated diagnostics platform for rechargeable battery packs (LiFePO4 / NMC). Engineered with **Node.js**, **Express.js**, **EJS Templating**, and the native **File System (`fs`)** module.
 
 ---
 
-## 🌟 Project Overview
+## 🌟 Overview
 
-In industrial energy storage, electric vehicles (EVs), and solar installations, a **Battery Management System (BMS)** monitors critical pack parameters such as voltage, current, temperature, State of Charge (SoC), and cell balance to ensure safe and efficient operation.
+In electric mobility (EVs), renewable solar storage (ESS), and industrial energy infrastructure, a **Battery Management System (BMS)** is the critical electronic core responsible for pack safety, thermal control, state estimation, and cell longevity.
 
-This project simulates a real-time BMS telemetry system while demonstrating the core syllabus concepts of backend JavaScript engineering:
-- Native HTTP web server vs. Express.js framework
-- RESTful routing delivering HTML views and JSON APIs
-- Asynchronous programming via the error-first callback pattern
-- File System operations (`readFileSync`, `readFile`, `writeFile`, `appendFile`)
-- Custom reusable CommonJS modules with mathematical calculations
-- Server-side template rendering with EJS
-- Modern, responsive dark-mode dashboard styled with green, black, and white aesthetics
-
----
-
-## 🚀 Key Features & Implemented Experiments
-
-| Exp # | Experiment Title | Implementation Details |
-|:---:|:---|:---|
-| **1** | **Native HTTP Server** | `server-http.js` using Node's built-in `http` module displaying *"Battery Management System Server Running"*. |
-| **2** | **Basic Routing** | Routes for `/`, `/battery`, `/status`, and `/about`. Route `/status` delivers dynamic JSON telemetry. |
-| **3** | **Callback Pattern** | `checkBatteryHealthWithCallback()` simulating health diagnosis with sequential callback execution. |
-| **4** | **File Operations** | Synchronous (`readFileSync`) and Asynchronous (`readFile`, `writeFile`, `appendFile`) operations on `batteryData.json` and `logs.txt`. |
-| **5** | **Custom Module** | `modules/batteryCalculator.js` providing `calculatePower()`, `calculateRemainingCapacity()`, and `calculateEfficiency()`. |
-| **6** | **Express.js Framework** | Express server with static asset hosting via `express.static('public')` and modular routing. |
-| **7** | **EJS Templating** | Dynamic views (`index.ejs`, `dashboard.ejs`, `about.ejs`) with partials (`header.ejs`, `navbar.ejs`, `footer.ejs`). |
-| **8** | **Theme & Styling** | Sleek responsive dashboard featuring an electric green, deep black, and white color palette with glowing status gauges. |
+**BMS Pro** provides:
+- **Real-Time Telemetry Dashboard**: Visualizing pack voltage, current, individual cell voltages (16S series matrix), temperature, State of Charge (SoC), and State of Health (SoH).
+- **RESTful Telemetry API**: Machine-readable JSON feeds (`/status`) for edge gateways and monitoring clients.
+- **Automated Health Diagnostics**: Asynchronous health evaluation simulating real-time sensor limits and threshold alarms.
+- **Dual Storage Engine**: Combines low-latency synchronous boot caching with asynchronous runtime audit logging and state persistence.
+- **Electrical Calculation Engine**: Dynamic computation of Instantaneous Power ($P = V \times I$), Usable Capacity ($Ah$), and Power Conversion Efficiency ($\%$).
+- **Standalone Heartbeat Daemon**: Native Node.js HTTP server for health probes and failover monitoring.
 
 ---
 
-## 📂 Folder Structure
+## 🚀 Key Features
+
+| Subsystem | Architecture & Description |
+|:---|:---|
+| **Reactive Telemetry Dashboard** | Responsive dark-mode interface built with custom CSS, neon glowing gauges, and 16-cell balancing visualizer. |
+| **Telemetry JSON Feed** | High-performance endpoint (`GET /status`) returning live pack metrics. |
+| **Diagnostics Engine** | Asynchronous sensor evaluation checking voltage thresholds and thermal warnings. |
+| **Audit Logging & Storage** | Persistent disk storage of pack metrics (`batteryData.json`) and timestamped event logging (`logs.txt`). |
+| **Engineering Calculation Module** | Standalone mathematical calculation module (`modules/batteryCalculator.js`). |
+| **Dual HTTP Daemon** | Full-featured Express application (`app.js`) paired with a lightweight native HTTP heartbeat (`server-http.js`). |
+
+---
+
+## 📂 Project Architecture
 
 ```
 nodejsexp6/
 │
-├── app.js                          # Main Express.js server & experiment orchestrator
-├── server-http.js                  # Experiment 1: Native Node.js HTTP server
+├── app.js                          # Core Express.js application & middleware pipeline
+├── server-http.js                  # Standalone native HTTP heartbeat service
 ├── package.json                    # Project configuration, scripts, and dependencies
-├── package-lock.json               # Locked dependency tree
-├── README.md                       # Complete setup and user documentation
-├── BMS_LAB_MANUAL.md               # Comprehensive Lab Manual (Aim, Theory, Flowcharts, 25 Viva Q&As)
+├── README.md                       # System documentation
 │
-├── modules/                        # Reusable backend custom modules
-│   ├── batteryCalculator.js        # Exp 5: calculatePower, calculateRemainingCapacity, calculateEfficiency
-│   └── fileManager.js              # Exp 3 & 4: fs operations and callback health check flow
+├── modules/                        # Business logic & calculation layer
+│   ├── batteryCalculator.js        # Electrical power, capacity, and efficiency formulas
+│   └── fileManager.js              # Persistence, audit logging & diagnostic routines
 │
 ├── data/                           # Data storage layer
-│   ├── batteryData.json            # Exp 4 & 9: Real-world 16S LiFePO4 battery pack telemetry
-│   └── logs.txt                    # Exp 4: BMS event audit log created via fs.appendFile()
+│   ├── batteryData.json            # 16S LiFePO4 pack telemetry store
+│   └── logs.txt                    # System audit trail and event log
 │
-├── routes/                         # Express route handlers
-│   └── batteryRoutes.js            # Routes for /, /battery, /status, /about, and test APIs
+├── routes/                         # REST & View routing
+│   └── batteryRoutes.js            # Route controllers for views and JSON endpoints
 │
-├── views/                          # EJS view templates
-│   ├── index.ejs                   # Home landing page with BMS overview
-│   ├── dashboard.ejs               # Main telemetry dashboard with live experiment workbench
-│   ├── about.ejs                   # Lab experiment details, theory, and architecture
-│   ├── 404.ejs                     # Error handling view
-│   └── partials/                   # Reusable EJS template components
-│       ├── header.ejs              # HTML head, favicon, fonts, and CSS links
-│       ├── navbar.ejs              # Navigation bar with active link state
-│       └── footer.ejs              # Page footer with tech stack credits
+├── views/                          # EJS templates
+│   ├── index.ejs                   # System landing & status overview
+│   ├── dashboard.ejs               # Real-time telemetry dashboard & test workbench
+│   ├── about.ejs                   # System architecture and technical specifications
+│   ├── 404.ejs                     # Error fallback view
+│   └── partials/                   # Reusable UI partials
+│       ├── header.ejs              # Head meta tags and stylesheets
+│       ├── navbar.ejs              # Main navigation bar
+│       └── footer.ejs              # Footer layout
 │
-└── public/                         # Static assets served via express.static()
+└── public/                         # Static web assets
     ├── css/
-    │   └── style.css               # Green/black/white responsive design system & gauges
+    │   └── style.css               # Modern green/black industrial theme & layout
     ├── js/
-    │   └── main.js                 # Interactive client controller (AJAX, dynamic refresh, calculator)
+    │   └── main.js                 # Dynamic client-side controller (AJAX, refresh, calculations)
     └── images/
-        └── bms-icon.svg            # Custom SVG vector icon for BMS
+        └── bms-icon.svg            # Custom BMS vector logo
 ```
 
 ---
 
-## 🛠️ Prerequisites & Installation
+## 🛠️ Getting Started
 
 ### Prerequisites
-- **Node.js** (v16.0.0 or higher recommended; tested on v24.19.0)
-- **npm** (v8.0.0 or higher; tested on v11.17.0)
-- Any modern web browser (Google Chrome, Microsoft Edge, Mozilla Firefox)
+- **Node.js** (v16.0.0 or higher)
+- **npm** (v8.0.0 or higher)
 
-### Installation Steps
-
-1. Open your terminal or PowerShell and navigate to the project directory:
+### Installation
+1. Clone the repository:
    ```bash
-   cd c:\Users\aryah\Desktop\WPL\nodejsexp6
+   git clone https://github.com/aaryachandra82-hub/WPL-Battery-Management-System.git
+   cd WPL-Battery-Management-System
    ```
 
-2. Install the required dependencies:
+2. Install dependencies:
    ```bash
    npm install
    ```
 
----
-
-## 💻 Running the Application
-
-### 1. Run the Main Express BMS Dashboard (Default)
-```bash
-npm start
-```
-- Main Application: [http://localhost:3000](http://localhost:3000)
-- Battery Dashboard: [http://localhost:3000/battery](http://localhost:3000/battery)
-- Status JSON API: [http://localhost:3000/status](http://localhost:3000/status)
-- About & Lab Manual: [http://localhost:3000/about](http://localhost:3000/about)
-
-### 2. Run the Native HTTP Server (Experiment 1)
-To run the standalone Experiment 1 native HTTP server:
-```bash
-npm run start:http
-```
-- Access in browser: [http://localhost:3001](http://localhost:3001)
-- Displays: *"Battery Management System Server Running"*
+3. Launch the platform:
+   ```bash
+   npm start
+   ```
 
 ---
 
-## 🌐 Application Routes & API Endpoints
+## 🌐 Endpoints & Usage
 
-| Endpoint | Method | Output Type | Description |
+| Endpoint | Method | Format | Purpose |
 |:---|:---:|:---:|:---|
-| `/` | `GET` | HTML (EJS) | Home landing page with system status and experiment cards. |
-| `/battery` | `GET` | HTML (EJS) | Real-time Battery Dashboard displaying all required metrics and interactive test workbench. |
-| `/status` | `GET` | JSON | Returns battery telemetry JSON (`batteryId`, `voltage`, `current`, `temperature`, `chargePercentage`, `batteryHealth`). |
-| `/about` | `GET` | HTML (EJS) | Lab manual, theory, system architecture, and syllabus mappings. |
-| `/api/callback` | `GET` | JSON | Triggers Experiment 3 callback flow and returns sequential execution log. |
-| `/api/file-ops/test-all` | `GET` | JSON | Tests `readFileSync()`, `readFile()`, `writeFile()`, and `appendFile()`. |
-| `/api/calculate` | `POST` | JSON | Custom module endpoint computing Power, Remaining Capacity, and Efficiency. |
+| `/` | `GET` | HTML | System Overview & Quick Pack Status |
+| `/battery` | `GET` | HTML | Real-time Telemetry Dashboard & Diagnostics Workbench |
+| `/status` | `GET` | JSON | Machine-readable Telemetry Feed |
+| `/about` | `GET` | HTML | Architecture & Engineering Specifications |
+| `/api/callback` | `GET` | JSON | Triggers Asynchronous Diagnostic Health Routine |
+| `/api/file-ops/test-all` | `GET` | JSON | Verifies Storage Persistence & Audit Log Engine |
+| `/api/calculate` | `POST` | JSON | Computes Power, Usable Capacity, and Efficiency |
+
+### Standalone Heartbeat Daemon
+To run the lightweight native HTTP server on port 3001:
+```bash
+npm run heartbeat
+```
+- Endpoint: [http://localhost:3001](http://localhost:3001)
+- Displays: `"Battery Management System Server Running"`
 
 ---
 
-## 📸 Screenshots Guide for Lab Submission
+## 📊 Sample Telemetry Output (`GET /status`)
 
-When preparing your laboratory submission or journal, capture the following screenshots:
-
-1. **Terminal Startup Console Output**:
-   - Run `npm start` in your terminal.
-   - Capture the formatted ASCII banner, the custom module calculations output, and the Experiment 3 callback execution output.
-2. **Home Page (`http://localhost:3000/`)**:
-   - Capture the Hero section, live pack snapshot card, and the 6 experiment cards.
-3. **Battery Dashboard (`http://localhost:3000/battery`)**:
-   - Capture the top battery charge gauge (84%), the 8 telemetry metric cards (Voltage, Current, Temperature, Calculated Power, Charge Percentage, Battery Health, Remaining Capacity, Efficiency), and the 16-cell voltage matrix.
-4. **Callback Demonstration Workbench**:
-   - On `/battery`, scroll to the "Callback Pattern Health Check" section and click "Run Callback Health Check".
-   - Capture the terminal window showing the sequence:
-     ```
-     > Checking Battery...
-     > Battery Data Loaded...
-     > Callback Executed
-     > Battery Health: Good
-     ```
-5. **File System Operations Workbench**:
-   - On `/battery`, click "Test All File Operations".
-   - Capture the terminal log showing successful verification of `readFileSync`, `readFile`, `appendFile`, and `writeFile`.
-6. **JSON Status Endpoint (`http://localhost:3000/status`)**:
-   - Open `/status` in the browser or Postman and capture the formatted JSON response.
-7. **Native HTTP Server (`http://localhost:3001/`)**:
-   - Run `npm run start:http` and capture the web page showing *"Battery Management System Server Running"*.
+```json
+{
+  "batteryId": "BMS-EV-7048",
+  "voltage": 51.84,
+  "current": 14.5,
+  "temperature": 29.4,
+  "chargePercentage": 84,
+  "batteryHealth": "Good",
+  "calculatedPowerWatts": 751.68,
+  "chargingStatus": "Discharging",
+  "lastUpdated": "2026-10-22T18:10:00.000Z"
+}
+```
 
 ---
 
-## 🧪 Detailed Lab Manual
+## 🧪 Electrical Engineering Formulas
 
-For the complete academic lab report containing **Aim**, **Objectives**, **Problem Statement**, **Theory**, **Algorithms**, **Mermaid Flowcharts**, **Code Explanation**, and **25 Viva Voce Questions with Answers**, refer to:
-👉 [BMS_LAB_MANUAL.md](./BMS_LAB_MANUAL.md)
+- **Instantaneous Electrical Power ($P$)**:
+  $$P = V \times I \quad \text{(Watts)}$$
+- **Remaining Usable Capacity ($Ah$)**:
+  $$\text{Remaining Capacity} = \text{Nominal Capacity} \times \left(\frac{\text{SoC}}{100}\right)$$
+- **Power Conversion Efficiency ($\eta$)**:
+  $$\eta = \left(\frac{P_{out}}{P_{in}}\right) \times 100 \quad (\%)$$
 
 ---
 
-## 📜 License
-Developed for academic laboratory coursework. Open source under the ISC License.
+## 📄 License
+Released under the [ISC License](LICENSE).

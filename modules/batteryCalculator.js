@@ -1,11 +1,10 @@
 /**
- * Custom Module: batteryCalculator.js
- * Experiment 5: Custom Module creation and export in Node.js
+ * Battery Management System (BMS) - Calculation Engine
  * 
- * Provides mathematical and engineering calculations for a Battery Management System (BMS):
- * 1. Power (Watts / kW)
- * 2. Remaining Capacity (Ampere-hours / Ah)
- * 3. Power Conversion Efficiency (%)
+ * Provides mathematical and engineering calculations for battery packs:
+ * 1. Power (Watts) - P = V * I
+ * 2. Usable Remaining Capacity (Ampere-hours / Ah)
+ * 3. Power Conversion / Charging Efficiency (%)
  */
 
 /**
@@ -34,7 +33,6 @@ function calculatePower(voltage, current) {
 function calculateRemainingCapacity(capacity, chargePercentage) {
   const cap = parseFloat(capacity) || 0;
   const soc = parseFloat(chargePercentage) || 0;
-  // Constrain SoC between 0 and 100
   const clampedSoc = Math.min(Math.max(soc, 0), 100);
   const remaining = cap * (clampedSoc / 100);
   return parseFloat(remaining.toFixed(2));
@@ -45,7 +43,7 @@ function calculateRemainingCapacity(capacity, chargePercentage) {
  * Formula: Efficiency (%) = (Output Power / Input Power) * 100
  * 
  * @param {number} inputPower - Power supplied into the battery or charger (Watts)
- * @param {number} outputPower - Usable power delivered by the battery or charger (Watts)
+ * @param {number} outputPower - Usable power delivered by the battery or load (Watts)
  * @returns {number} Efficiency percentage (%), rounded to 2 decimal places
  */
 function calculateEfficiency(inputPower, outputPower) {
@@ -53,14 +51,13 @@ function calculateEfficiency(inputPower, outputPower) {
   const pOut = parseFloat(outputPower) || 0;
 
   if (pIn <= 0) {
-    return 0; // Prevent division by zero or invalid negative input power
+    return 0;
   }
 
   const efficiency = (pOut / pIn) * 100;
   return parseFloat(Math.min(efficiency, 100).toFixed(2));
 }
 
-// Export functions as a CommonJS module
 module.exports = {
   calculatePower,
   calculateRemainingCapacity,
