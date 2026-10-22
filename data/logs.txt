@@ -1,0 +1,3 @@
+[2026-10-22T18:00:00.000Z] BMS System Initialized. All 16 cells operational.
+[2026-10-22T18:05:00.000Z] Telemetry Heartbeat: Voltage=51.84V, Temp=29.4°C, Health=Good.
+[2026-10-22T18:23:26.685Z] Automated Test: Telemetry verified by fs.appendFile()

@@ -1,0 +1,27 @@
+{
+  "name": "battery-management-system-lab",
+  "version": "1.0.0",
+  "description": "College Web Development Lab Experiment 6: Battery Management System (BMS) with Node.js, Express.js, EJS, and fs module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js",
+    "start:http": "node server-http.js",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "ejs",
+    "bms",
+    "battery-management-system",
+    "file-system",
+    "college-lab"
+  ],
+  "author": "College Web Development Laboratory",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}

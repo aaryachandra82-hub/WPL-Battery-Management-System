@@ -1,0 +1,29 @@
+<nav class="navbar">
+  <div class="container nav-content">
+    <a href="/" class="brand">
+      <img src="/images/bms-icon.svg" alt="BMS Logo" class="brand-icon">
+      <span>BMS<span style="color: var(--accent-neon);">.PRO</span></span>
+      <span class="brand-badge">Lab Exp 6</span>
+    </a>
+
+    <ul class="nav-links">
+      <li>
+        <a href="/" class="nav-link <%= currentPage === 'home' ? 'active' : '' %>">Home</a>
+      </li>
+      <li>
+        <a href="/battery" class="nav-link <%= currentPage === 'battery' ? 'active' : '' %>">Dashboard</a>
+      </li>
+      <li>
+        <a href="/status" target="_blank" class="nav-link">Status API (JSON)</a>
+      </li>
+      <li>
+        <a href="/about" class="nav-link <%= currentPage === 'about' ? 'active' : '' %>">About Lab</a>
+      </li>
+    </ul>
+
+    <div class="nav-status">
+      <span class="pulse-dot"></span>
+      <span>BMS Core Online</span>
+    </div>
+  </div>
+</nav>

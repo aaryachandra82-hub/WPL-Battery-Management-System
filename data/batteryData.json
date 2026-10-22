@@ -1,0 +1,88 @@
+{
+  "batteryId": "BMS-EV-7048",
+  "batteryType": "Lithium Iron Phosphate (LiFePO4)",
+  "nominalCapacity": 100,
+  "nominalVoltage": 48,
+  "voltage": 51.84,
+  "current": 14.5,
+  "temperature": 29.4,
+  "chargePercentage": 84,
+  "batteryHealth": "Good",
+  "chargingStatus": "Discharging",
+  "cycleCount": 142,
+  "cellCount": 16,
+  "lastUpdated": "2026-10-22T18:23:26.688Z",
+  "cells": [
+    {
+      "cellId": 1,
+      "voltage": 3.24
+    },
+    {
+      "cellId": 2,
+      "voltage": 3.24
+    },
+    {
+      "cellId": 3,
+      "voltage": 3.25
+    },
+    {
+      "cellId": 4,
+      "voltage": 3.23
+    },
+    {
+      "cellId": 5,
+      "voltage": 3.24
+    },
+    {
+      "cellId": 6,
+      "voltage": 3.25
+    },
+    {
+      "cellId": 7,
+      "voltage": 3.24
+    },
+    {
+      "cellId": 8,
+      "voltage": 3.24
+    },
+    {
+      "cellId": 9,
+      "voltage": 3.23
+    },
+    {
+      "cellId": 10,
+      "voltage": 3.24
+    },
+    {
+      "cellId": 11,
+      "voltage": 3.25
+    },
+    {
+      "cellId": 12,
+      "voltage": 3.24
+    },
+    {
+      "cellId": 13,
+      "voltage": 3.23
+    },
+    {
+      "cellId": 14,
+      "voltage": 3.24
+    },
+    {
+      "cellId": 15,
+      "voltage": 3.24
+    },
+    {
+      "cellId": 16,
+      "voltage": 3.24
+    }
+  ],
+  "safetyLimits": {
+    "maxVoltage": 58.4,
+    "minVoltage": 40,
+    "maxCurrent": 100,
+    "maxTemp": 55,
+    "minTemp": 0
+  }
+}

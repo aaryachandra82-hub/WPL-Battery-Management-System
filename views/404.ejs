@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<main class="container" style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 24px; text-align: center;">
+  <div class="card" style="max-width: 540px; width: 100%; padding: 40px; border-color: rgba(239, 68, 68, 0.4);">
+    <div style="font-size: 3.5rem; margin-bottom: 12px;">⚠️</div>
+    <h1 style="font-size: 2.2rem; color: #ffffff; margin-bottom: 8px;">Resource Not Found</h1>
+    <p style="color: var(--text-secondary); margin-bottom: 20px;">
+      The requested route <code style="color: var(--accent-neon);"><%= url %></code> does not exist on this BMS server.
+    </p>
+
+    <div class="btn-group">
+      <a href="/" class="btn btn-primary">Return Home</a>
+      <a href="/battery" class="btn btn-outline">Go to Dashboard</a>
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>
